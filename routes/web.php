@@ -14,15 +14,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('homepage');
+})->name('home');
 
 Route::post('/insert',[\App\Http\Controllers\UserController::class,'storeInfo'])->name('insert');
 
 Route::post('Logged',[\App\Http\Controllers\UserController::class,'Login'])->name('Logged');
 
+Route::post('/update',[\App\Http\Controllers\UserController::class,'updateprofile'])->name('update');
+
 Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class,'profiles'])->name('profile');
 
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/alternatelogin', function () {
+    return view('alternatelogin');
+})->name('alternatelogin');
+
+Route::get('/editprofile/{id}', function () {
+    return view('editprofile');
+})->name('editprofile');
+
+Route::get('/editprofile/{id}',[\App\Http\Controllers\UserController::class,'edit'])->name('editprofile');
 //Route::get('/profile/{user}', function () {
 //    return view('profile');
 //})->name('profile');
