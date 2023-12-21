@@ -29,6 +29,12 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/dashboard/{id}',[\App\Http\Controllers\UserController::class,'dash'])->name('dashboard');
+
 Route::get('/alternatelogin', function () {
     return view('alternatelogin');
 })->name('alternatelogin');

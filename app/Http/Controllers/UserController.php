@@ -30,10 +30,16 @@ class UserController extends Controller
             ->first();
 
         if ($user) {
-            return redirect()->route('profile', ['id' => $user->id]);
+            return redirect()->route('dashboard', ['id' => $user->id]);
         }
         else
             return redirect()->back()->with('error','Please Check Your Credential');
+    }
+
+    public function dash($id){
+        $user = User::find($id);
+
+        return view('dashboard',['id'=>$user]);
     }
 
     public function profiles($id)
