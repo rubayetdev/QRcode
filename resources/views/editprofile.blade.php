@@ -7,6 +7,268 @@
 
     <style>
 
+        body.sidebar-collapsed .sidebar {
+            transform: translateX(-100%);
+        }
+
+        /* Adjust main content when sidebar is collapsed */
+        body.sidebar-collapsed .main-content {
+            margin-left: 0;
+        }
+
+        /* Hide logo text when sidebar is collapsed */
+        body.sidebar-collapsed .logo {
+            display: none;
+        }
+
+        /* Show logo icon only when sidebar is collapsed */
+        body.sidebar-collapsed .navbar-toggler {
+            display: block;
+        }
+
+        body.sidebar-collapsed .sidebar {
+            transform: translateX(-100%);
+        }
+
+        /* Adjust main content when sidebar is collapsed */
+        body.sidebar-collapsed .main-content {
+            margin-left: 0;
+        }
+
+        /* Hide logo text when sidebar is collapsed */
+        body.sidebar-collapsed .logo {
+            display: none;
+        }
+
+        /* Show logo icon only when sidebar is collapsed */
+        body.sidebar-collapsed .navbar-toggler {
+            display: block;
+        }
+        /* Color scheme */
+        body {
+            background-color: #f5f5f5; /* Light gray background */
+            color: #333;
+            font-family: Poppins, sans-serif; /* Add your preferred font */
+        }
+
+        .navbar {
+            background-color: #007bff; /* Primary color */
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+        }
+
+        a {
+            color: #007bff; /* Primary color for links */
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2rem;
+        }
+
+        /* Card design */
+        .card {
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out; /* Add transition for hover effects */
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Sidebar transition */
+        .sidebar {
+            transform: translateX(-100%); /* Initially hidden */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        body.sidebar-open .sidebar {
+            transform: translateX(0); /* Show sidebar on body class change */
+        }
+
+        /* Profile picture interaction */
+        .profile-pic {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1); /* Expand on hover */
+        }
+
+        /* Animated greeting */
+        #greeting-message {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        body.greeting-visible #greeting-message {
+            opacity: 1; /* Fade in greeting */
+        }
+
+
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 250px;
+            height: 100vh; /* Set full height of viewport */
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+
+            /* New styles for better aesthetics */
+            padding-top: 60px; /* Create space for logo */
+        }
+
+        .logo {
+            padding: 10px 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid #555;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .menu li {
+            padding: 15px 20px;
+            transition: background-color 0.3s ease; /* Add transition for background color change */
+        }
+
+        .menu li:hover {
+            background-color: #555; /* Change background color on hover */
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+        }
+        /* Reset default margin and padding */
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 300;
+        }
+
+        /* Basic styling for the sidebar/menu */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 250px;
+            height: 100vh; /* Set full height of viewport */
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .logo {
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 15px 20px;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* Styling for the main content area */
+        .main-content {
+            margin-left: 250px; /* Same width as sidebar */
+            padding: 20px;
+        }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+        }
+
+        #profile-initial {
+            text-transform: uppercase;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1); /* Scale the picture on hover */
+            transition: transform 0.3s ease; /* Add smooth transition */
+        }
+
+        /* Animation for menu items */
+        .menu li a {
+            transition: color 0.3s ease; /* Add transition for color change */
+        }
+
+        .menu li a:hover {
+            color: #ffcc00; /* Change color on hover */
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Adjustments for smaller devices like mobile phones */
+        @media (max-width: 576px) {
+            .sidebar {
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .menu li {
+                padding: 10px 15px;
+            }
+
+            .profile-pic {
+                width: 30px;
+                height: 30px;
+                margin-right: 5px;
+            }
+
+            .navbar-brand {
+                font-size: 20px;
+            }
+        }
         /* Reset default margin and padding */
         body, html {
             margin: 0;
@@ -85,7 +347,7 @@
 
     </style>
 </head>
-<body>
+<body class="sidebar-open">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
     <div class="container-fluid">
@@ -112,12 +374,13 @@
         Shothik AI
     </div>
     <ul class="menu">
-        <li><a href="{{route('dashboard',['id'=>$id->id])}}">Home</a></li>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Analytics</a></li>
-        <li><a href="#">Settings</a></li>
-        <li><a href="{{route('home')}}">Logout</a></li>
+        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="{{route('home')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
+
 </div>
 
 <div class="container mt-5 main-content">
@@ -202,5 +465,7 @@
     }
 
 </script>
+
+<script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -7,10 +7,159 @@
 
     <style>
 
+        body.sidebar-collapsed .sidebar {
+            transform: translateX(-100%);
+        }
+
+        /* Adjust main content when sidebar is collapsed */
+        body.sidebar-collapsed .main-content {
+            margin-left: 0;
+        }
+
+        /* Hide logo text when sidebar is collapsed */
+        body.sidebar-collapsed .logo {
+            display: none;
+        }
+
+        /* Show logo icon only when sidebar is collapsed */
+        body.sidebar-collapsed .navbar-toggler {
+            display: block;
+        }
+
+        body.sidebar-collapsed .sidebar {
+            transform: translateX(-100%);
+        }
+
+        /* Adjust main content when sidebar is collapsed */
+        body.sidebar-collapsed .main-content {
+            margin-left: 0;
+        }
+
+        /* Hide logo text when sidebar is collapsed */
+        body.sidebar-collapsed .logo {
+            display: none;
+        }
+
+        /* Show logo icon only when sidebar is collapsed */
+        body.sidebar-collapsed .navbar-toggler {
+            display: block;
+        }
+        /* Color scheme */
+        body {
+            background-color: #f5f5f5; /* Light gray background */
+            color: #333;
+            font-family: Poppins, sans-serif; /* Add your preferred font */
+        }
+
+        .navbar {
+            background-color: #007bff; /* Primary color */
+        }
+
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+        }
+
+        a {
+            color: #007bff; /* Primary color for links */
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2rem;
+        }
+
+        /* Card design */
+        .card {
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease-in-out; /* Add transition for hover effects */
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Sidebar transition */
+        .sidebar {
+            transform: translateX(-100%); /* Initially hidden */
+            transition: transform 0.3s ease-in-out;
+        }
+
+        body.sidebar-open .sidebar {
+            transform: translateX(0); /* Show sidebar on body class change */
+        }
+
+        /* Profile picture interaction */
+        .profile-pic {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.1); /* Expand on hover */
+        }
+
+        /* Animated greeting */
+        #greeting-message {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        body.greeting-visible #greeting-message {
+            opacity: 1; /* Fade in greeting */
+        }
+
+
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 250px;
+            height: 100vh; /* Set full height of viewport */
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+
+            /* New styles for better aesthetics */
+            padding-top: 60px; /* Create space for logo */
+        }
+
+        .logo {
+            padding: 10px 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid #555;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .menu li {
+            padding: 15px 20px;
+            transition: background-color 0.3s ease; /* Add transition for background color change */
+        }
+
+        .menu li:hover {
+            background-color: #555; /* Change background color on hover */
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+        }
         /* Reset default margin and padding */
         body, html {
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 300;
         }
 
         /* Basic styling for the sidebar/menu */
@@ -83,16 +232,54 @@
             color: #ffcc00; /* Change color on hover */
         }
 
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin-bottom: 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Adjustments for smaller devices like mobile phones */
+        @media (max-width: 576px) {
+            .sidebar {
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .menu li {
+                padding: 10px 15px;
+            }
+
+            .profile-pic {
+                width: 30px;
+                height: 30px;
+                margin-right: 5px;
+            }
+
+            .navbar-brand {
+                font-size: 20px;
+            }
+        }
+
     </style>
 </head>
-<body>
+<body class="sidebar-open">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <a class="navbar-brand" href="#">Navbar</a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page" href="#">
@@ -113,21 +300,105 @@
         Shothik AI
     </div>
     <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Analytics</a></li>
-        <li><a href="{{route('editprofile',['id'=>$id->id])}}">Settings</a></li>
-        <li><a href="{{route('home')}}">Logout</a></li>
+        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+        <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="{{route('home')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
+
 </div>
 
 <div class="main-content">
     <!-- Main content area -->
-    <h1>Welcome to the Dashboard</h1>
-    <p>This is the main content area</p>
+    <h1 id="greeting-message"></h1>
+{{--    <p id="greeting-message"></p>--}}
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <!-- Each link will be in a card view -->
+        <div class="col">
+            <div class="card">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fas fa-box-open me-2"></i> <!-- Font Awesome icon representing a product box -->
+                    <a href="{{route('productqr',['id'=>$id->id])}}" class="text-decoration-none">Product QR</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">Link 2</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+
 <script>
+    const greetingMessage = document.getElementById('greeting-message');
+    const currentTime = new Date().getHours();
+
+    if (currentTime >= 5 && currentTime < 12) {
+        greetingMessage.textContent = 'Good Morning!';
+    } else if (currentTime >= 12 && currentTime < 18) {
+        greetingMessage.textContent = 'Good Afternoon!';
+    } else if (currentTime >= 18 && currentTime < 22) {
+        greetingMessage.textContent = 'Good Evening!';
+    } else {
+        greetingMessage.textContent = 'Good Night!';
+    }
+
     function getInitial(name) {
         return name.charAt(0);
     }
@@ -152,9 +423,18 @@
     } else {
         profilePic.textContent = firstCharacter;
     }
+    // ... your existing JavaScript code ...
 
+    // Add body classes for sidebar and greeting animations
+    document.body.classList.add('sidebar-open'); // Show sidebar on page load
+    document.body.classList.add('greeting-visible'); // Show greeting
+
+    function toggleSidebar() {
+        const body = document.body;
+        body.classList.toggle('sidebar-collapsed'); // Toggle class for collapsed sidebar
+    }
 
 </script>
-
+<script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -46,7 +46,7 @@
         }
         /* Color scheme */
         body {
-            background-color: #f5f5f5; /* Light gray background */
+            background-color: #ffffff; /* Light gray background */
             color: #333;
             font-family: Poppins, sans-serif; /* Add your preferred font */
         }
@@ -270,95 +270,19 @@
             }
         }
 
-        /* Reset default margin and padding */
-        body, html {
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Basic styling for the sidebar/menu */
-        .sidebar {
-            background-color: #333;
-            color: #fff;
-            width: 250px;
-            height: 100vh; /* Set full height of viewport */
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        .logo {
-            padding: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .menu {
-            list-style: none;
-            padding: 0;
-        }
-
-        .menu li {
-            padding: 15px 20px;
-        }
-
-        .menu li a {
-            text-decoration: none;
-            color: #fff;
-        }
-
-        /* Styling for the main content area */
-        .main-content {
-            margin-left: 250px; /* Same width as sidebar */
-            padding: 20px;
-        }
-        .profile-pic {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #ccc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-        }
-
-        #profile-initial {
-            text-transform: uppercase;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.1); /* Scale the picture on hover */
-            transition: transform 0.3s ease; /* Add smooth transition */
-        }
-
-        /* Animation for menu items */
-        .menu li a {
-            transition: color 0.3s ease; /* Add transition for color change */
-        }
-
-        .menu li a:hover {
-            color: #ffcc00; /* Change color on hover */
-        }
-
     </style>
 </head>
 <body class="sidebar-open">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <a class="navbar-brand" href="#">Navbar</a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">
+                <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page" href="#">
                     <div class="profile-pic">
                         <!-- This span will hold the first letter of the name -->
                         <span id="profile-initial"></span>
@@ -370,12 +294,13 @@
     </div>
 </nav>
 
+
 <div class="sidebar">
     <div class="logo">
         Shothik AI
     </div>
     <ul class="menu">
-        <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="#"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
         <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
@@ -384,33 +309,67 @@
 
 </div>
 
-<div class="container mt-5 main-content">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h2>Your Profile</h2>
-                </div>
-                <div class="card-body">
-                    <div class="row">
+<div class="main-content">
+    <h1 id="greeting-message"></h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Product Information</h2>
                         @if(session('success'))
                             <div class="alert alert-success" id="successmessage">
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <div class="col-md-4">
-                            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="img-fluid rounded-circle mb-3">
-                        </div>
-                        <div class="col-md-8" id="userInfo">
-                            <h4 id="userName">{{$id->name}}</h4>
-                            <p>Email: {{$id->email}}</p>
-                            <p>Phone: {{$id->phone}}</p>
-                            <p>Location: {{$id->address}}</p>
-                            <p id="qrcodeImage">{{$qrCode}}</p>
-                            <p>About: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et urna at nibh consectetur facilisis vel eget mauris.</p>
-                            <a href="{{route('editprofile',['id'=>$id->id])}}" class="btn btn-primary" style="background-color: #005477">Edit Profile</a>
-                            <button onclick="downloadQRCode()" class="btn btn-primary" style="background-color: #005477">Download QR Code</button>
-                        </div>
+
+                        @php
+                            if (\App\Models\ProductQR::count() === 0) {
+                                        $prod = 1; // Set $prod to 1 if the database is empty
+                            } else {
+                                $prod = $product->id + 1; // Calculate $prod based on the last product ID
+                            }
+                        @endphp
+
+
+                        <form action="{{route('products')}}" method="post">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$id->id}}" readonly>
+                            <input type="hidden" name="prod" value="{{$prod}}" readonly>
+                            <input type="hidden" name="username" value="{{$id->name}}" readonly>
+                            <div class="mb-3">
+                                <label for="companyName" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="companyName" name="companyName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Product Name</label>
+                                <input type="text" class="form-control" id="productName" name="productName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="batchNumber" class="form-label">Batch Number</label>
+                                <input type="text" class="form-control" id="batchNumber" name="batchNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="makingDate" class="form-label">Making Date</label>
+                                <input type="date" class="form-control" id="makingDate" name="makingDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Expired Date</label>
+                                <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">QR Code</h2>
+{{--                        <div class="d-flex justify-content-center align-items-center">--}}
+{{--                            <img src="data:image/png;base64,{{ base64_encode(0) }}" alt="QR Code">--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -418,8 +377,22 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 <script>
+    const greetingMessage = document.getElementById('greeting-message');
+    const currentTime = new Date().getHours();
+
+    if (currentTime >= 5 && currentTime < 12) {
+        greetingMessage.textContent = 'Good Morning!';
+    } else if (currentTime >= 12 && currentTime < 18) {
+        greetingMessage.textContent = 'Good Afternoon!';
+    } else if (currentTime >= 18 && currentTime < 22) {
+        greetingMessage.textContent = 'Good Evening!';
+    } else {
+        greetingMessage.textContent = 'Good Night!';
+    }
 
     function getInitial(name) {
         return name.charAt(0);
@@ -445,57 +418,18 @@
     } else {
         profilePic.textContent = firstCharacter;
     }
+    // ... your existing JavaScript code ...
 
+    // Add body classes for sidebar and greeting animations
+    document.body.classList.add('sidebar-open'); // Show sidebar on page load
+    document.body.classList.add('greeting-visible'); // Show greeting
 
-    function editProfile() {
-        document.getElementById('userInfo').classList.add('d-none');
-        document.getElementById('editInfo').classList.remove('d-none');
+    function toggleSidebar() {
+        const body = document.body;
+        body.classList.toggle('sidebar-collapsed'); // Toggle class for collapsed sidebar
     }
-
-    function cancelEdit() {
-        document.getElementById('userInfo').classList.remove('d-none');
-        document.getElementById('editInfo').classList.add('d-none');
-    }
-
-    // Example for form submission (you may use AJAX or other methods for saving data)
-    document.getElementById('editForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        // Get input values
-        const newName = document.getElementById('editName').value;
-        const newEmail = document.getElementById('editEmail').value;
-        const newPhone = document.getElementById('editPhone').value;
-        const newLocation = document.getElementById('editLocation').value;
-        const newAbout = document.getElementById('editAbout').value;
-
-        // Update user information
-        document.getElementById('userName').textContent = newName;
-        // Update other elements accordingly
-
-        // Show original profile view and hide the edit form
-        cancelEdit();
-    });
-
-    function downloadQRCode() {
-
-        const qrCodeContent = document.getElementById('qrcodeImage').textContent;
-
-        const downloadLink = document.createElement('a');
-        downloadLink.href = 'download.php?qr=' + encodeURIComponent(qrCodeContent);
-        downloadLink.download = 'qrcode.png';
-        downloadLink.click();
-    }
-    setTimeout(function() {
-        document.getElementById('errorMessage').style.display = 'none';
-    }, 10000);
-
-    setTimeout(function() {
-        document.getElementById('successmessage').style.display = 'none';
-    }, 10000);
-
 
 </script>
-
 <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -12,6 +12,10 @@
         .no-blur {
             filter: blur(0);
         }
+        body {
+            font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-weight: 300;
+        }
     </style>
 </head>
 <body>
@@ -24,9 +28,9 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="#">Features</a>
+{{--                <a class="nav-link" href="#">Features</a>--}}
                 <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="{{route('alter2')}}">Sign In</a>
             </div>
         </div>
     </div>
@@ -42,7 +46,7 @@
                     The ultimate AI-powered writing tool. From rephrasing sentences to refining grammar and vocabulary, Shothik ensures your writing is top-notch every time.
                 </p>
                 <div style="padding-top: 30px;">
-                    <a href="{{route('login')}}" class="btn btn-primary btn-lg">Get Started</a>
+                    <a href="{{route('alter2')}}" class="btn btn-primary btn-lg">Sign up here</a>
                 </div>
             </div>
         </div>

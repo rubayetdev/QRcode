@@ -7,13 +7,16 @@
         margin: 0;
         padding: 0;
     }
+    body {
+        font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+    }
     .hero{
         height: 100%;
         width: 100%;
         background-position: center;
         background-size: cover;
         position: absolute;
-        background: linear-gradient(to right, #005477, #f0f0f0);
     }
 
     .form-box{
@@ -79,6 +82,7 @@
         background: linear-gradient(to right, #005477, #f0f0f0);
 
     }
+
 
     #login{
         left: 50px;

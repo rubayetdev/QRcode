@@ -33,6 +33,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/alter', function () {
+    return view('alter');
+})->name('alter');
+
+Route::get('/alter2', function () {
+    return view('alter2');
+})->name('alter2');
+
+Route::get('/dashboard2', function () {
+    return view('dashboard2');
+})->name('dashboard2');
+
 Route::get('/dashboard/{id}',[\App\Http\Controllers\UserController::class,'dash'])->name('dashboard');
 
 Route::get('/alternatelogin', function () {
@@ -47,3 +59,9 @@ Route::get('/editprofile/{id}',[\App\Http\Controllers\UserController::class,'edi
 //Route::get('/profile/{user}', function () {
 //    return view('profile');
 //})->name('profile');
+
+Route::get('/productqr/{id}',[\App\Http\Controllers\UserController::class,'productqrandbar'])->name('productqr');
+
+Route::post('/products',[\App\Http\Controllers\UserController::class,'productupload'])->name('products');
+
+Route::get('/theqr/{id}/{product}',[\App\Http\Controllers\UserController::class,'the'])->name('theqr');
