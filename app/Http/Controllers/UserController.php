@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmailQR;
+use App\Models\LocationQR;
 use App\Models\ProductQR;
+use App\Models\SMSQR;
+use App\Models\URLQR;
 use App\Models\User;
+use App\Models\WIFIQR;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use function PHPUnit\Framework\isEmpty;
 
@@ -12,11 +19,14 @@ class UserController extends Controller
 {
     public function storeInfo(Request $request)
     {
+        $password = $request->input('Password');
+
+
         $infoInsert = User::insert([
             'name'=>$request->input('FullName'),
             'email'=>$request->input('Email'),
             'phone'=>$request->input('PhoneNumber'),
-            'password'=>$request->input('Password')
+            'password'=>$password
         ]);
 
         if($infoInsert){
@@ -26,6 +36,16 @@ class UserController extends Controller
 
     public function Login(Request $request)
     {
+//        $credential = $request->only('Email','Password');
+//        if (Auth::attempt($credential))
+//        {
+//            $userId = Auth::id();
+//            return redirect()->route('dashboard', ['id' => $userId]);
+//        }
+//        else
+//            return redirect()->back()->with('error', 'Invalid credentials');
+
+
         $user = User::where('email',$request->input('Email'))
             ->where('password',$request->input('Password'))
             ->first();
@@ -35,6 +55,17 @@ class UserController extends Controller
         }
         else
             return redirect()->back()->with('error','Please Check Your Credential');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('home');
+
     }
 
     public function dash($id){
@@ -50,8 +81,7 @@ class UserController extends Controller
         $userInfo = "Name: {$user->name}\n";
         $userInfo .= "Email: {$user->email}\n";
         $userInfo .= "Phone: {$user->phone}\n";
-        $userInfo .= "Address: {$user->address}\n";
-        $qrCode = QrCode::size(150)->generate($userInfo);
+        $qrCode = QrCode::format('png')->size(150)->generate($userInfo);
 
         return view('profile', ['id'=>$user,'qrCode'=>$qrCode]);
     }
@@ -93,8 +123,6 @@ class UserController extends Controller
         $user = User::find($id);
         $product = ProductQR::find($products);
 
-
-
             $info = "Company Name: {$product->company_name}\n";
             $info .= "Product Name: {$product->product_name}\n";
             $info .= "Batch Number: {$product->batch_number}\n";
@@ -127,7 +155,218 @@ class UserController extends Controller
         }
     }
 
+    public function email($id)
+    {
+        $user = User::find($id);
+
+        $product = EmailQR::orderBy('id','desc')->first();
+
+        return view('emailqr',['id'=>$user,'product'=>$product]);
+    }
+
+    public function emailupload(Request $request)
+    {
+        $user = $request->input('id');
+        $products = $request->input('prod');
+        $infoEmail = EmailQR::insert([
+            'user_id'=>$user,
+            'user_name'=>$request->input('username'),
+            'userfrom'=>$request->input('fromName'),
+            'userto'=>$request->input('toName'),
+            'message'=>$request->input('message')
+        ]);
+        if ($infoEmail){
+            return redirect()->route('theqr2',['id'=>$user,'product'=>$products])->with('success', 'Your QR Code is ready.');
+        }
+    }
+
+    public function the2($id,$products, Request $request)
+    {
+        $user = User::find($id);
+        $product = EmailQR::find($products);
+
+        $info = "From: {$product->userfrom}\n";
+        $info .= "To: {$product->userto}\n";
+        $info .= "Message: {$product->message}\n";
+
+        $qrCode = QrCode::format('png')->size(200)->generate($info);
+
+        return view ('theqr2',['id'=>$user,'product'=>$product,'qrCode'=>$qrCode]);
+
+    }
+
+    public function historypage($id)
+    {
+        $user = User::find($id);
+
+        $users = ProductQR::where('user_id',$user->id)->get();
+        $emailuser = EmailQR::where('user_id',$user->id)->get();
+        $location = LocationQR::where('user_id',$user->id)->get();
+        $url = URLQR::where('user_id',$user->id)->get();
+        $sms = SMSQR::where('user_id',$user->id)->get();
+        $wifi = WIFIQR::where('user_id',$user->id)->get();
+
+        return view ('history',[
+            'id'=>$user,
+            'users'=>$users,
+            'emailuser'=>$emailuser,
+            'location'=>$location,
+            'url'=>$url,
+            'sms'=>$sms,
+            'wifi'=>$wifi
+        ]);
+    }
+
+    public function smsupload(Request $request)
+    {
+        $user = $request->input('id');
+        $products = $request->input('prod');
+        $infoEmail = SMSQR::insert([
+            'user_id'=>$user,
+            'user_name'=>$request->input('username'),
+            'userfrom'=>$request->input('fromName'),
+            'userto'=>$request->input('toName'),
+            'smsmessage'=>$request->input('message')
+        ]);
+        if ($infoEmail){
+            return redirect()->route('theqr3',['id'=>$user,'product'=>$products])->with('success', 'Your QR Code is ready.');
+        }
+    }
+
+    public function the3($id,$product,Request $request)
+    {
+        $user = User::find($id);
+        $products = SMSQR::find($product);
+
+        $info = "From: {$products->userfrom}\n";
+        $info .= "To: {$products->userto}\n";
+        $info .= "Message: {$products->smsmessage}\n";
+
+        $qrCode = QrCode::format('png')->size(200)->generate($info);
+
+        return view ('theqr3',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
+    }
+
+    public function sms($id)
+    {
+        $user = User::find($id);
+
+        $products = SMSQR::orderBy('id','desc')->first();
+
+        return view('smsqr',['id'=>$user,'product'=>$products]);
+    }
+
+    public function wifi($id){
+        $user = User::find($id);
+        $products = WIFIQR::orderBy('id','desc')->first();
+        return view('wifiqr',['id'=>$user, 'product'=>$products]);
+    }
+
+    public function wifiupload(Request $request)
+    {
+        $user = $request->input('id');
+        $products = $request->input('prod');
+        $infoEmail = WIFIQR::insert([
+            'user_id'=>$user,
+            'user_name'=>$request->input('username'),
+            'networktype'=>$request->input('fromName'),
+            'network_name'=>$request->input('toName'),
+            'password'=>$request->input('message'),
+            'passwordtype'=>$request->input('passwordtype')
+        ]);
+        if ($infoEmail){
+            return redirect()->route('theqr4',['id'=>$user,'product'=>$products])->with('success', 'Your QR Code is ready.');
+        }
+    }
+
+    public function the4($id, Request $request, $product)
+    {
+        $user = User::find($id);
+        $products = WIFIQR::find($product);
+
+        $info = "Network Name: {$products->network_name}\n";
+        $info .= "Network Type: {$products->networktype}\n";
+        $info .= "Password: {$products->password}\n";
+        $info .= "Password Type: {$products->passwordtype}\n";
+
+        $qrCode = QrCode::format('png')->size(200)->generate($info);
+
+        return view ('theqr4',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
+    }
+
+    public function location($id)
+    {
+        $user = User::find($id);
+        $products = LocationQR::orderBy('id','desc')->first();
+        return view('locationqr',['id'=>$user, 'product'=>$products]);
+    }
+
+    public function locationupload(Request $request)
+    {
+        $user = $request->input('id');
+        $products = $request->input('prod');
+        $infoEmail = LocationQR::insert([
+            'user_id'=>$user,
+            'user_name'=>$request->input('username'),
+            'location'=>$request->input('fromName'),
+            'destination'=>$request->input('toName'),
+            'address'=>$request->input('message'),
+        ]);
+        if ($infoEmail){
+            return redirect()->route('theqr5',['id'=>$user,'product'=>$products])->with('success', 'Your QR Code is ready.');
+        }
+    }
+
+    public function the5($id, Request $request, $product)
+    {
+        $user = User::find($id);
+        $products = LocationQR::find($product);
+
+        $info = "Location: {$products->location}\n";
+        $info .= "Destination: {$products->destination}\n";
+        $info .= "Address: {$products->address}\n";
 
 
+        $qrCode = QrCode::format('png')->size(200)->generate($info);
+
+        return view ('theqr5',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
+    }
+
+    public function url($id)
+    {
+        $user = User::find($id);
+        $products = URLQR::orderBy('id','desc')->first();
+        return view('urlqr',['id'=>$user, 'product'=>$products]);
+    }
+
+    public function urlupload(Request $request)
+    {
+        $user = $request->input('id');
+        $products = $request->input('prod');
+        $infoEmail = URLQR::insert([
+            'user_id'=>$user,
+            'user_name'=>$request->input('username'),
+            'websitename'=>$request->input('fromName'),
+            'link'=>$request->input('toName')
+        ]);
+        if ($infoEmail){
+            return redirect()->route('theqr6',['id'=>$user,'product'=>$products])->with('success', 'Your QR Code is ready.');
+        }
+    }
+
+    public function the6($id, Request $request, $product)
+    {
+        $user = User::find($id);
+        $products = URLQR::find($product);
+
+        $info = "Website Name: {$products->websitename}\n";
+        $info .= "Link: {$products->link}\n";
+
+
+
+        $qrCode = QrCode::format('png')->size(200)->generate($info);
+
+        return view ('theqr6',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
+    }
 
 }

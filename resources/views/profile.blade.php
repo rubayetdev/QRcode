@@ -406,7 +406,7 @@
                             <p>Email: {{$id->email}}</p>
                             <p>Phone: {{$id->phone}}</p>
                             <p>Location: {{$id->address}}</p>
-                            <p id="qrcodeImage">{{$qrCode}}</p>
+                            <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code">
                             <p>About: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et urna at nibh consectetur facilisis vel eget mauris.</p>
                             <a href="{{route('editprofile',['id'=>$id->id])}}" class="btn btn-primary" style="background-color: #005477">Edit Profile</a>
                             <button onclick="downloadQRCode()" class="btn btn-primary" style="background-color: #005477">Download QR Code</button>

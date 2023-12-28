@@ -317,7 +317,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">Product Information</h2>
+                        <h2 class="card-title">SMS Information</h2>
                         @if(session('success'))
                             <div class="alert alert-success" id="successmessage">
                                 {{ session('success') }}
@@ -325,37 +325,39 @@
                         @endif
 
                         @php
-                            if (\App\Models\ProductQR::count() === 0) {
-                                        $prod = 1; // Set $prod to 1 if the database is empty
+                            if (\App\Models\WIFIQR::count() === 0) {
+                                        $prod = 1;
                             } else {
-                                $prod = $product->id + 1; // Calculate $prod based on the last product ID
+                                $prod = $product->id + 1;
                             }
                         @endphp
 
-                        <form action="{{route('products')}}" method="post">
+                        <form action="{{route('wifiupload')}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{$id->id}}" readonly>
                             <input type="hidden" name="prod" value="{{$prod}}" readonly>
                             <input type="hidden" name="username" value="{{$id->name}}" readonly>
                             <div class="mb-3">
-                                <label for="companyName" class="form-label">Company Name</label>
-                                <input type="text" class="form-control" id="companyName" name="companyName" required>
+                                <select class="form-control" id="companyName" name="fromName" required>
+                                    <option value="-">Network Type</option>
+                                    <option value="Encrypted">Encrypted</option>
+                                    <option value="Decrypted">Decrypted</option>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="productName" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="productName" name="productName" required>
+                                <label for="productName" class="form-label">Network Name</label>
+                                <input type="text" class="form-control" id="productName" name="toName" required>
                             </div>
                             <div class="mb-3">
-                                <label for="batchNumber" class="form-label">Batch Number</label>
-                                <input type="text" class="form-control" id="batchNumber" name="batchNumber" required>
+                                <label for="batchNumber" class="form-label">Passowrd</label>
+                                <input type="password" class="form-control" name="message" required></input>
                             </div>
                             <div class="mb-3">
-                                <label for="makingDate" class="form-label">Making Date</label>
-                                <input type="date" class="form-control" id="makingDate" name="makingDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="expiryDate" class="form-label">Expired Date</label>
-                                <input type="date" class="form-control" id="expiryDate" name="expiryDate" required>
+                                <select class="form-control" id="companyName" name="passwordtype" required>
+                                    <option value="-">Password Type</option>
+                                    <option value="Hidden">Hidden</option>
+                                    <option value="Show">Show</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Generate QR Code</button>
                         </form>
@@ -366,9 +368,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">QR Code</h2>
-{{--                        <div class="d-flex justify-content-center align-items-center">--}}
-{{--                            <img src="data:image/png;base64,{{ base64_encode(0) }}" alt="QR Code">--}}
-{{--                        </div>--}}
+                        {{--                        <div class="d-flex justify-content-center align-items-center">--}}
+                        {{--                            <img src="data:image/png;base64,{{ base64_encode(0) }}" alt="QR Code">--}}
+                        {{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -432,3 +434,4 @@
 <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
