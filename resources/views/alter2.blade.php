@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Document</title>
 
     <style>
@@ -15,6 +16,22 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{route('home')}}">Scan<span>Hub</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                {{--                <a class="nav-link" href="#">Features</a>--}}
+                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="{{route('alter2')}}">Sign In</a>
+            </div>
+        </div>
+    </div>
+</nav>
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div
         class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
@@ -81,5 +98,6 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

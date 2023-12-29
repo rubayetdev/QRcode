@@ -44,6 +44,9 @@ Route::get('/dashboard2', function () {
     return view('dashboard2');
 })->name('dashboard2');
 
+Route::get('/tools', function () {
+    return view('tools');
+})->name('tools');
 
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('logout');
 

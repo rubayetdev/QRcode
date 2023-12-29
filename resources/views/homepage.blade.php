@@ -16,12 +16,21 @@
             font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
             font-weight: 300;
         }
+        .hub {
+            background-color: yellow;
+            color: white;
+            font-weight: bolder;
+            font-size: 6rem;
+            padding: 20px;
+            border-radius: 30px/* Adding padding for better visibility */
+        }
+
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">ScanHub</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +38,7 @@
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
 {{--                <a class="nav-link" href="#">Features</a>--}}
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="{{route('tools')}}">Tools</a>
                 <a class="nav-link" href="{{route('alter2')}}">Sign In</a>
             </div>
         </div>
@@ -40,46 +49,49 @@
     <div class="row">
         <div class="col-md-6 offset-md-3 text-center">
             <div style="padding-top: 30px;">
-                <h1 style="font-size: 3.5rem;">Revolutionize Your Writing with</h1>
-                <h1 style="font-weight: bolder; font-size: 6rem;">Shothik</h1>
-                <p style="font-size: 1.2rem; padding-top: 20px;">
-                    The ultimate AI-powered writing tool. From rephrasing sentences to refining grammar and vocabulary, Shothik ensures your writing is top-notch every time.
+                <h1 style="font-size: 3.5rem; color: #333;">Enhance Efficiency with</h1>
+                <h1 style="font-weight: bolder; font-size: 6rem; color: black;">Scan<span class="hub">Hub</span></h1>
+                <p style="font-size: 1.2rem; padding-top: 20px; color: #666;">
+                    Empower your productivity with ScanHub, your go-to QR scanning solution. Easily decode QR codes, access information swiftly, and streamline your tasks seamlessly.
                 </p>
+
                 <div style="padding-top: 30px;">
-                    <a href="{{route('alter2')}}" class="btn btn-primary btn-lg">Sign up here</a>
+                    <a href="{{route('alter2')}}" class="btn btn-primary btn-lg" style="background-color: #007bff; border-color: #007bff;">Sign up here</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+
 <section class="features-container" id="features-section" style="padding-top: 80px;">
     <div class="row" style="background-color: #f0f0f0; padding: 50px 0;">
         <div class="col-md-8 offset-md-2">
-            <h2 style="text-align: center; font-size: 2.5rem; font-weight: bold; margin-bottom: 30px;">Why Choose Shothik?</h2>
+            <h2 style="text-align: center; font-size: 2.5rem; font-weight: bold; margin-bottom: 30px;">Why Choose ScanHub?</h2>
             <div class="feature-item">
-                <h3>AI-Powered Writing Assistance</h3>
-                <p>Shothik uses cutting-edge AI to assist in rephrasing sentences, refining grammar, and enhancing vocabulary, ensuring top-notch writing quality.</p>
+                <h3>Effortless QR Scanning</h3>
+                <p>ScanHub provides seamless QR code scanning, enabling quick access to information with ease and efficiency.</p>
             </div>
             <div class="feature-item">
-                <h3>Professional-Grade Results</h3>
-                <p>Create polished content effortlessly, be it for work, academics, or creative endeavors.</p>
+                <h3>Multi-Purpose Functionality</h3>
+                <p>From accessing website links to storing contact details, ScanHub serves various needs with its versatile QR code decoding.</p>
             </div>
             <div class="feature-item">
-                <h3>Time-Saving Tool</h3>
-                <p>Save time on proofreading, allowing more focus on generating ideas and content.</p>
+                <h3>Time-Efficient Solution</h3>
+                <p>Save time by instantly decoding QR codes, eliminating the need for manual typing or searching for information.</p>
             </div>
             <div class="feature-item">
-                <h3>Accessible Anywhere</h3>
-                <p>Conveniently access Shothik across multiple devices, ensuring seamless writing experiences on the go.</p>
+                <h3>Cross-Device Accessibility</h3>
+                <p>Access ScanHub effortlessly on multiple devices, ensuring flexibility and convenience in QR code scanning wherever you go.</p>
             </div>
             <div class="feature-item">
-                <h3>Enhanced Collaboration</h3>
-                <p>Facilitates collaboration by allowing easy sharing and reviewing of documents with others.</p>
+                <h3>Enhanced Sharing Capabilities</h3>
+                <p>Facilitates easy sharing and exchange of QR code information, promoting seamless collaboration among users.</p>
             </div>
         </div>
     </div>
 </section>
+
 
 
 
