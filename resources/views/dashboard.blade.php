@@ -51,7 +51,7 @@
         </li>
         <li><a href="{{route('history',['id'=>$id])}}"><i class="fas fa-history"></i> History</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
-        <li><a href="{{route('home')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
 </div>
 

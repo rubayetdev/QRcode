@@ -32,7 +32,7 @@
                 <input
                     type="text"
                     class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                    name="Email"
+                    name="email"
                     id="email"
                 />
             </div>
@@ -40,7 +40,7 @@
                 <span class="mb-2 text-md">Password</span>
                 <input
                     type="password"
-                    name="Password"
+                    name="password"
                     id="pass"
                     class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
                 />

@@ -20,13 +20,13 @@ class UserController extends Controller
     public function storeInfo(Request $request)
     {
         $password = $request->input('Password');
-
+        $encrypt = Hash::make($password);
 
         $infoInsert = User::insert([
             'name'=>$request->input('FullName'),
             'email'=>$request->input('Email'),
             'phone'=>$request->input('PhoneNumber'),
-            'password'=>$password
+            'password'=>$encrypt
         ]);
 
         if($infoInsert){
@@ -36,25 +36,25 @@ class UserController extends Controller
 
     public function Login(Request $request)
     {
-//        $credential = $request->only('Email','Password');
-//        if (Auth::attempt($credential))
-//        {
-//            $userId = Auth::id();
-//            return redirect()->route('dashboard', ['id' => $userId]);
-//        }
-//        else
-//            return redirect()->back()->with('error', 'Invalid credentials');
-
-
-        $user = User::where('email',$request->input('Email'))
-            ->where('password',$request->input('Password'))
-            ->first();
-
-        if ($user) {
-            return redirect()->route('dashboard', ['id' => $user->id]);
+        $credential = $request->only('email','password');
+        if (Auth::attempt($credential))
+        {
+            $userId = Auth::id();
+            return redirect()->route('dashboard', ['id' => $userId]);
         }
         else
-            return redirect()->back()->with('error','Please Check Your Credential');
+            return redirect()->back()->with('error', 'Invalid credentials');
+
+
+//        $user = User::where('email',$request->input('Email'))
+//            ->where('password',$request->input('Password'))
+//            ->first();
+//
+//        if ($user) {
+//            return redirect()->route('dashboard', ['id' => $user->id]);
+//        }
+//        else
+//            return redirect()->back()->with('error','Please Check Your Credential');
     }
 
     public function logout(Request $request)
@@ -64,14 +64,17 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('home');
+        return redirect('/alter2');
 
     }
 
     public function dash($id){
         $user = User::find($id);
-
-        return view('dashboard',['id'=>$user]);
+        if ($user) {
+            return view('dashboard', ['id' => $user]);
+        } else {
+            return redirect()->back()->with('error', 'User not found');
+        }
     }
 
     public function profiles($id)

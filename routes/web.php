@@ -45,7 +45,7 @@ Route::get('/dashboard2', function () {
     return view('dashboard2');
 })->name('dashboard2');
 
-Route::get('/dashboard/{id}',[\App\Http\Controllers\UserController::class,'dash'])->name('dashboard');
+Route::get('/dashboard/{id}',[\App\Http\Controllers\UserController::class,'dash'])->middleware('auth')->name('dashboard');
 
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('logout');
 
