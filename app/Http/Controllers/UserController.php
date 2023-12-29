@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactQR;
 use App\Models\EmailQR;
 use App\Models\LocationQR;
 use App\Models\ProductQR;
@@ -208,6 +209,7 @@ class UserController extends Controller
         $url = URLQR::where('user_id',$user->id)->get();
         $sms = SMSQR::where('user_id',$user->id)->get();
         $wifi = WIFIQR::where('user_id',$user->id)->get();
+        $contact = ContactQR::where('user_id',$user->id)->get();
 
         return view ('history',[
             'id'=>$user,
@@ -216,7 +218,8 @@ class UserController extends Controller
             'location'=>$location,
             'url'=>$url,
             'sms'=>$sms,
-            'wifi'=>$wifi
+            'wifi'=>$wifi,
+            'contact'=>$contact
         ]);
     }
 
@@ -366,10 +369,85 @@ class UserController extends Controller
         $info .= "Link: {$products->link}\n";
 
 
-
         $qrCode = QrCode::format('png')->size(200)->generate($info);
 
         return view ('theqr6',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
     }
 
+    public function contact($id)
+    {
+        $user = User::find($id);
+        $products = ContactQR::orderBy('id','desc')->first();
+        return view('contactqr',['id'=>$user, 'product'=>$products]);
+    }
+
+    public function contactupload(Request $request)
+    {
+        $userid = $request->input('id');
+        $products = $request->input('prod');
+        $username = $request->input('username');
+        $first = $request->input('firstname');
+        $name = $request->input('name');
+        $organ = $request->input('organization');
+        $title = $request->input('title');
+        $email = $request->input('email');
+        $phone = $request->input('phone');
+        $mobile = $request->input('mobilephone');
+        $fax = $request->input('fax');
+        $street = $request->input('street');
+        $city = $request->input('city');
+        $region = $request->input('region');
+        $post = $request->input('post');
+        $country = $request->input('country');
+        $link = $request->input('link');
+
+        $insert = ContactQR::insert([
+            'user_id'=>$userid,
+            'user_name'=>$username,
+            'firstname'=>$first,
+            'name'=>$name,
+            'organization'=>$organ,
+            'title'=>$title,
+            'email'=>$email,
+            'phone'=>$phone,
+            'mobileph'=>$mobile,
+            'fax'=>$fax,
+            'street'=>$street,
+            'city'=>$city,
+            'region'=>$region,
+            'postcode'=>$post,
+            'country'=>$country,
+            'url'=>$link
+        ]);
+
+        if ($insert)
+        {
+            return redirect()->route('theqr7',['id'=>$userid,'product'=>$products])->with('success', 'Your QR Code is ready.');
+        }
+    }
+    public function the7($id, Request $request, $product)
+    {
+        $user = User::find($id);
+        $products = ContactQR::find($product);
+
+        $info = "First Name: {$products->firstname}\n";
+        $info .= "Name: {$products->name}\n";
+        $info .= "Organization: {$products->organization}\n";
+        $info .= "Title: {$products->title}\n";
+        $info .= "Email: {$products->email}\n";
+        $info .= "Telephone: {$products->phone}\n";
+        $info .= "Mobile Phone: {$products->mobileph}\n";
+        $info .= "Fax: {$products->fax}\n";
+        $info .= "Street: {$products->street}\n";
+        $info .= "City: {$products->city}\n";
+        $info .= "Region: {$products->region}\n";
+        $info .= "Postcode: {$products->postcode}\n";
+        $info .= "Country: {$products->country}\n";
+        $info .= "Link: {$products->url}\n";
+
+
+        $qrCode = QrCode::format('png')->size(200)->generate($info);
+
+        return view ('theqr7',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
+    }
 }

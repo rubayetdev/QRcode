@@ -23,7 +23,6 @@ Route::post('Logged',[\App\Http\Controllers\UserController::class,'Login'])->nam
 
 Route::post('/update',[\App\Http\Controllers\UserController::class,'updateprofile'])->name('update');
 
-Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class,'profiles'])->name('profile');
 
 Route::get('/login', function () {
     return view('login');
@@ -45,7 +44,6 @@ Route::get('/dashboard2', function () {
     return view('dashboard2');
 })->name('dashboard2');
 
-Route::get('/dashboard/{id}',[\App\Http\Controllers\UserController::class,'dash'])->middleware('auth')->name('dashboard');
 
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('logout');
 
@@ -53,14 +51,17 @@ Route::get('/alternatelogin', function () {
     return view('alternatelogin');
 })->name('alternatelogin');
 
-Route::get('/editprofile/{id}', function () {
-    return view('editprofile');
-})->name('editprofile');
 
-Route::get('/editprofile/{id}',[\App\Http\Controllers\UserController::class,'edit'])->name('editprofile');
-//Route::get('/profile/{user}', function () {
-//    return view('profile');
-//})->name('profile');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard/{id}',[\App\Http\Controllers\UserController::class,'dash'])->name('dashboard');
+    Route::get('/editprofile/{id}', function () {
+        return view('editprofile');
+    })->name('editprofile');
+
+    Route::get('/editprofile/{id}',[\App\Http\Controllers\UserController::class,'edit'])->name('editprofile');
+    Route::get('/profile/{id}',[\App\Http\Controllers\UserController::class,'profiles'])->name('profile');
+
 
 Route::get('/productqr/{id}',[\App\Http\Controllers\UserController::class,'productqrandbar'])->name('productqr');
 
@@ -99,3 +100,12 @@ Route::get('/urlqr/{id}',[\App\Http\Controllers\UserController::class,'url'])->n
 Route::post('/urlupload',[\App\Http\Controllers\UserController::class,'urlupload'])->name('urlupload');
 
 Route::get('/theqr6/{id}/{product}',[\App\Http\Controllers\UserController::class,'the6'])->name('theqr6');
+
+Route::get('/contactqr/{id}',[\App\Http\Controllers\UserController::class,'contact'])->name('contactqr');
+
+    Route::post('/contactupload',[\App\Http\Controllers\UserController::class,'contactupload'])->name('contactupload');
+
+
+    Route::get('/theqr7/{id}/{product}',[\App\Http\Controllers\UserController::class,'the7'])->name('theqr7');
+
+});

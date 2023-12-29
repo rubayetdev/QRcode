@@ -324,19 +324,76 @@
                             </div>
                         @endif
 
+                        @php
+                            if (\App\Models\ContactQR::count() === 0) {
+                                        $prod = 1; // Set $prod to 1 if the database is empty
+                            } else {
+                                $prod = $product->id + 1; // Calculate $prod based on the last product ID
+                            }
+                        @endphp
 
-                        <form>
+                        <form action="{{route('contactupload')}}" method="post">
+                            @csrf
                             <input type="hidden" name="id" value="{{$id->id}}" readonly>
+                            <input type="hidden" name="prod" value="{{$prod}}" readonly>
                             <input type="hidden" name="username" value="{{$id->name}}" readonly>
                             <div class="mb-3">
-                                <label for="companyName" class="form-label">From</label>
-                                <input type="email" class="form-control" id="companyName" value="{{$product->websitename}}" name="companyName" required readonly>
+                                <label for="companyName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="companyName" name="firstname" required>
                             </div>
                             <div class="mb-3">
-                                <label for="productName" class="form-label">To</label>
-                                <input type="email" class="form-control" id="productName" value="{{$product->link}}" name="productName" required readonly>
+                                <label for="productName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="productName" name="name" required>
                             </div>
-                            <a href="{{route('urlqr',['id'=>$id->id])}}" class="btn btn-primary">Re-Generate</a>
+                            <div class="mb-3">
+                                <label for="batchNumber" class="form-label">Organization</label>
+                                <input type="text" class="form-control" id="batchNumber" name="organization" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="batchNumber" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="batchNumber" name="title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="makingDate" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="makingDate" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="expiryDate" name="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Mobile Phone</label>
+                                <input type="text" class="form-control" id="expiryDate" name="mobilephone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Fax</label>
+                                <input type="number" class="form-control" id="expiryDate" name="fax" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Street</label>
+                                <input type="text" class="form-control" id="expiryDate" name="street" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">City</label>
+                                <input type="text" class="form-control" id="expiryDate" name="city" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Region</label>
+                                <input type="text" class="form-control" id="expiryDate" name="region" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Postcode</label>
+                                <input type="text" class="form-control" id="expiryDate" name="post" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="expiryDate" name="country" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Website/URL/Social</label>
+                                <input type="text" class="form-control" id="expiryDate" name="link" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Generate QR Code</button>
                         </form>
                     </div>
                 </div>
@@ -345,12 +402,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">QR Code</h2>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code">
-                        </div>
-                        <div class="text-center mt-3">
-                            <button onclick="downloadQRCode()" class="btn btn-primary">Download QR Code</button>
-                        </div>
+                        {{--                        <div class="d-flex justify-content-center align-items-center">--}}
+                        {{--                            <img src="data:image/png;base64,{{ base64_encode(0) }}" alt="QR Code">--}}
+                        {{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -410,32 +464,7 @@
         body.classList.toggle('sidebar-collapsed'); // Toggle class for collapsed sidebar
     }
 
-    function downloadQRCode() {
-        // Get the QR code data from the displayed image
-        var qrCodeImage = document.querySelector('img');
-        var qrCodeDataURL = qrCodeImage.src;
-
-        // Create a temporary anchor element
-        var downloadLink = document.createElement('a');
-        downloadLink.href = qrCodeDataURL; // Set QR code data URL as href
-        downloadLink.download = '{{$id->user_name}}.png'; // Set download file name
-
-        // Append the anchor element to the body
-        document.body.appendChild(downloadLink);
-
-        // Simulate a click on the anchor element to trigger download
-        downloadLink.click();
-
-        // Remove the temporary anchor element
-        document.body.removeChild(downloadLink);
-    }
-
-
-
 </script>
 <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-

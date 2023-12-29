@@ -119,19 +119,20 @@
 
         <div class="col">
             <div class="card">
-                <div class="card-body">
-                    <a href="#">Link 2</a>
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa-solid fa-user me-2"></i>
+                    <a href="{{route('contactqr',['id'=>$id->id])}}" class="text-decoration-none">Contact QR</a>
                 </div>
             </div>
         </div>
 
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <a href="#">Link 2</a>
-                </div>
-            </div>
-        </div>
+{{--        <div class="col">--}}
+{{--            <div class="card">--}}
+{{--                <div class="card-body">--}}
+{{--                    <a href="#">Link 2</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
 </div>
 

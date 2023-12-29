@@ -325,18 +325,69 @@
                         @endif
 
 
-                        <form>
+
+                        <form action="#" method="post">
+                            @csrf
                             <input type="hidden" name="id" value="{{$id->id}}" readonly>
+
                             <input type="hidden" name="username" value="{{$id->name}}" readonly>
                             <div class="mb-3">
-                                <label for="companyName" class="form-label">From</label>
-                                <input type="email" class="form-control" id="companyName" value="{{$product->websitename}}" name="companyName" required readonly>
+                                <label for="companyName" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="companyName" name="firstname" value="{{$product->firstname}}" required readonly>
                             </div>
                             <div class="mb-3">
-                                <label for="productName" class="form-label">To</label>
-                                <input type="email" class="form-control" id="productName" value="{{$product->link}}" name="productName" required readonly>
+                                <label for="productName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="productName" name="name" value="{{$product->name}}" required readonly>
                             </div>
-                            <a href="{{route('urlqr',['id'=>$id->id])}}" class="btn btn-primary">Re-Generate</a>
+                            <div class="mb-3">
+                                <label for="batchNumber" class="form-label">Organization</label>
+                                <input type="text" class="form-control" id="batchNumber" name="organization" value="{{$product->organization}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="batchNumber" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="batchNumber" name="title" value="{{$product->title}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="makingDate" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="makingDate" name="email" value="{{$product->email}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="expiryDate" name="phone" value="{{$product->phone}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Mobile Phone</label>
+                                <input type="text" class="form-control" id="expiryDate" name="mobilephone" value="{{$product->mobileph}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Fax</label>
+                                <input type="number" class="form-control" id="expiryDate" name="fax" value="{{$product->fax}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Street</label>
+                                <input type="text" class="form-control" id="expiryDate" name="street" value="{{$product->street}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">City</label>
+                                <input type="text" class="form-control" id="expiryDate" name="city" value="{{$product->city}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Region</label>
+                                <input type="text" class="form-control" id="expiryDate" name="region" value="{{$product->region}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Postcode</label>
+                                <input type="text" class="form-control" id="expiryDate" name="post" value="{{$product->postcode}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Country</label>
+                                <input type="text" class="form-control" id="expiryDate" name="country" value="{{$product->country}}" required readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expiryDate" class="form-label">Website/URL/Social</label>
+                                <input type="text" class="form-control" id="expiryDate" name="link" value="{{$product->url}}" required readonly>
+                            </div>
+                            <a href="{{route('contactqr',['id'=>$id->id])}}" class="btn btn-primary">Regenerate QR Code</a>
                         </form>
                     </div>
                 </div>
@@ -410,32 +461,7 @@
         body.classList.toggle('sidebar-collapsed'); // Toggle class for collapsed sidebar
     }
 
-    function downloadQRCode() {
-        // Get the QR code data from the displayed image
-        var qrCodeImage = document.querySelector('img');
-        var qrCodeDataURL = qrCodeImage.src;
-
-        // Create a temporary anchor element
-        var downloadLink = document.createElement('a');
-        downloadLink.href = qrCodeDataURL; // Set QR code data URL as href
-        downloadLink.download = '{{$id->user_name}}.png'; // Set download file name
-
-        // Append the anchor element to the body
-        document.body.appendChild(downloadLink);
-
-        // Simulate a click on the anchor element to trigger download
-        downloadLink.click();
-
-        // Remove the temporary anchor element
-        document.body.removeChild(downloadLink);
-    }
-
-
-
 </script>
 <script src="https://kit.fontawesome.com/a87236255f.js" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
-

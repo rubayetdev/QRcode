@@ -271,7 +271,7 @@
         <li><a href="#"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
         <li><a href="#"><i class="fas fa-history"></i> History</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
-        <li><a href="{{route('home')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>
 
 </div>
@@ -334,19 +334,20 @@
 
         <div class="col">
             <div class="card">
-                <div class="card-body">
-                    <a href="#">Link 2</a>
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa-solid fa-user me-2"></i>
+                    <a href="#contact" class="text-decoration-none contact-dashboard">Contact QR</a>
                 </div>
             </div>
         </div>
 
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <a href="#">Link 2</a>
-                </div>
-            </div>
-        </div>
+{{--        <div class="col">--}}
+{{--            <div class="card">--}}
+{{--                <div class="card-body">--}}
+{{--                    <a href="#">Link 2</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
     </div>
     <section id= "product" style="display: block;">
     <div class="card">
@@ -543,6 +544,59 @@
         </div>
     </section>
 
+    <section id="contact" style="display: none;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Contact QR Code Details</h5>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    @foreach($contact as $use)
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    @php
+                                        $qrcode = 'First Name: '. $use->firstname . "\n" .
+                                                   'Name: '.$use->name . "\n".
+                                                    'Organization: '.$use->organization ."\n".
+                                                    'Title: '.$use->title."\n".
+                                                    'Email: '.$use->email."\n".
+                                                    'Telephone: '.$use->phone."\n".
+                                                    'Mobile Phone: '.$use->mobileph."\n".
+                                                    'Fax: '.$use->fax."\n".
+                                                    'Street: '.$use->street."\n".
+                                                    'City: '.$use->city."\n".
+                                                    'Region: '.$use->region."\n".
+                                                    'Postcode: '.$use->postcode."\n".
+                                                    'Country: '.$use->country."\n".
+                                                    'Link: '.$use->url."\n";
+
+                                        $qrCode = SimpleSoftwareIO\QrCode\Facades\QrCode::format('png')->size(200)->generate($qrcode);
+                                    @endphp
+                                    <img src="data:image/png;base64,{{ base64_encode($qrCode) }}" alt="QR Code" class="img-fluid mb-3">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><strong>First Name:</strong> {{$use->firstname}}</li>
+                                        <li class="list-group-item"><strong>Name:</strong> {{$use->name}}</li>
+                                        <li class="list-group-item"><strong>Organization:</strong> {{$use->organization}}</li>
+                                        <li class="list-group-item"><strong>Title:</strong> {{$use->title}}</li>
+                                        <li class="list-group-item"><strong>Email:</strong> {{$use->email}}</li>
+                                        <li class="list-group-item"><strong>Mobile Phone:</strong> {{$use->mobileph}}</li>
+                                        <li class="list-group-item"><strong>Telephone:</strong> {{$use->phone}}</li>
+                                        <li class="list-group-item"><strong>Fax:</strong> {{$use->fax}}</li>
+                                        <li class="list-group-item"><strong>Street:</strong> {{$use->street}}</li>
+                                        <li class="list-group-item"><strong>City:</strong> {{$use->city}}</li>
+                                        <li class="list-group-item"><strong>Region:</strong> {{$use->region}}</li>
+                                        <li class="list-group-item"><strong>Postcode:</strong> {{$use->postcode}}</li>
+                                        <li class="list-group-item"><strong>Country:</strong> {{$use->country}}</li>
+                                        <li class="list-group-item"><strong>Link:</strong> {{$use->url}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
 </body>
 <script>
@@ -553,6 +607,7 @@
     const smss = document.getElementById('sms');
     const rubayet = document.getElementById('wifi');
     const locations = document.getElementById('location');
+    const contact = document.getElementById('contact');
 
     const productLink = document.querySelector('.product-dashboard');
     const emailLink = document.querySelector('.email-dashboard');
@@ -560,6 +615,7 @@
     const smsLink = document.querySelector('.sms-dashboard');
     const wifiLink= document.querySelector('.wifi-dashboard');
     const locationLink = document.querySelector('.location-dashboard');
+    const contactLink = document.querySelector('.contact-dashboard');
 
     productLink.addEventListener('click',()=>{
         product.style.display = 'block'
@@ -568,6 +624,7 @@
         smss.style.display = 'none'
         rubayet.style.display = 'none'
         locations.style.display = 'none'
+        contact.style.display = 'none'
     })
 
     emailLink.addEventListener('click',()=>{
@@ -577,6 +634,7 @@
         smss.style.display = 'none'
         rubayet.style.display = 'none'
         locations.style.display = 'none'
+        contact.style.display = 'none'
     })
     urlLink.addEventListener('click',()=>{
         product.style.display = 'none'
@@ -585,6 +643,7 @@
         smss.style.display = 'none'
         rubayet.style.display = 'none'
         locations.style.display = 'none'
+        contact.style.display = 'none'
     })
     smsLink.addEventListener('click',()=>{
         product.style.display = 'none'
@@ -593,6 +652,7 @@
         smss.style.display = 'block'
         rubayet.style.display = 'none'
         locations.style.display = 'none'
+        contact.style.display = 'none'
     })
     wifiLink.addEventListener('click',()=>{
         product.style.display = 'none'
@@ -601,6 +661,7 @@
         smss.style.display = 'none'
         rubayet.style.display = 'block'
         locations.style.display = 'none'
+        contact.style.display = 'none'
     })
     locationLink.addEventListener('click',()=>{
         product.style.display = 'none'
@@ -609,6 +670,16 @@
         smss.style.display = 'none'
         rubayet.style.display = 'none'
         locations.style.display = 'block'
+        contact.style.display = 'none'
+    })
+    contactLink.addEventListener('click',()=>{
+        product.style.display = 'none'
+        email.style.display = 'none'
+        urls.style.display = 'none'
+        smss.style.display = 'none'
+        rubayet.style.display = 'none'
+        locations.style.display = 'none'
+        contact.style.display = 'block'
     })
 
     const greetingMessage = document.getElementById('greeting-message');
