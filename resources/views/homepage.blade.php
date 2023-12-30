@@ -146,6 +146,15 @@
     <!-- Unicons CSS -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <script src="{{asset('JS/script.js')}}" defer></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QHCMCY84FV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-QHCMCY84FV');
+    </script>
 </head>
 <body>
 <nav class="nav">
