@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <script src="{{asset('JS/script.js')}}" defer></script>
 
     <title>Document</title>
     <style>
@@ -13,28 +14,51 @@
             font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
             font-weight: 300;
         }
+
+        /* Additional CSS styles */
+        .form-input {
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.5rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .submit-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #333;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('home')}}">Scan<span>Hub</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                {{--                <a class="nav-link" href="#">Features</a>--}}
-                <a class="nav-link" href="#">Pricing</a>
-                <a class="nav-link" href="{{route('alter2')}}">Sign In</a>
-            </div>
-        </div>
-    </div>
+<nav class="nav">
+    <i class="uil uil-bars navOpenBtn"></i>
+    <a href="{{route('home')}}" class="logo">ScanHub</a>
+
+    <ul class="nav-links">
+        <i class="uil uil-times navCloseBtn"></i>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Signin Here</a></li>
+    </ul>
 </nav>
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div
-        class="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
+        class="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
     >
         <!-- left side -->
         <div class="flex flex-col justify-center p-8 md:p-14">

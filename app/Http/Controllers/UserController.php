@@ -35,13 +35,32 @@ class UserController extends Controller
         }
     }
 
+    public function showResetForm(Request $request, $token)
+    {
+        $email = $request->email;
+        return view('reset')->with(
+            ['token' => $token, 'email' => $email]
+        );
+    }
+
     public function Login(Request $request)
     {
+        $remember = $request->input('remember');
         $credential = $request->only('email','password');
         if (Auth::attempt($credential))
         {
-            $userId = Auth::id();
-            return redirect()->route('dashboard', ['id' => $userId]);
+            if(isset($remember) && !empty($remember)){
+                $expiration_time = time() + (15 * 24 * 3600); // 15 days in seconds
+                setcookie('email', $credential['email'], $expiration_time);
+                setcookie('password', $credential['password'], $expiration_time);
+            }
+
+            else{
+                setcookie('email','');
+                setcookie('password','');
+            }
+            $user = Auth::user();
+            return redirect()->route('dashboard', ['id' => $user->id]);
         }
         else
             return redirect()->back()->with('error', 'Invalid credentials');
@@ -65,7 +84,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/alter2');
+        return redirect('/');
 
     }
 
