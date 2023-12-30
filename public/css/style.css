@@ -319,6 +319,9 @@
 /*}*/
 
 /* Google Fonts - Poppins */
+
+
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 * {
@@ -483,7 +486,34 @@ a {
     bottom: 0;
     width: 100%;
 }
+/*.footer {*/
+/*    background-color: #4a98f7;*/
+/*    color: #fff;*/
+/*    padding: 20px 0;*/
+/*}*/
 
+/*.footer p {*/
+/*    font-size: 14px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.footer-links a {*/
+/*    color: #fff;*/
+/*    text-decoration: none;*/
+/*    margin: 5px 8px;*/
+/*    font-size: 12px;*/
+/*}*/
+
+/*.social-links a {*/
+/*    color: #fff;*/
+/*    text-decoration: none;*/
+/*    margin: 0 5px;*/
+/*    font-size: 20px;*/
+/*}*/
+
+/*.social-links a:hover {*/
+/*    color: #bbb;*/
+/*}*/
 /* Main content styles */
 
 /* Main Content Styling */

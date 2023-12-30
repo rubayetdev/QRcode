@@ -13,6 +13,23 @@
         body {
             font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
             font-weight: 300;
+            margin: 0; /* Reset default margin */
+            padding: 0; /* Reset default padding */
+        }
+        .nav {
+            color: white;
+            font-weight: bolder;
+            z-index: 10; /* Ensure the navbar appears above other elements */
+        }
+
+        .content-container {
+            padding-top: 20px; /* Adjust top padding to avoid overlap */
+        }
+
+        @media (min-width: 768px) {
+            .content-container {
+                padding-top: 120px; /* Adjust top padding for larger screens if needed */
+            }
         }
 
         /* Additional CSS styles */
@@ -51,87 +68,89 @@
 
     <ul class="nav-links">
         <i class="uil uil-times navCloseBtn"></i>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Signin Here</a></li>
+        <li><a href="{{route('home')}}">Home</a></li>
+        <li><a href="{{route('tools')}}">Tools</a></li>
+        <li><a href="#">Signin</a></li>
     </ul>
 </nav>
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div
-        class="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
-    >
-        <!-- left side -->
-        <div class="flex flex-col justify-center p-8 md:p-14">
-            <form action="{{route('insert')}}" method="post">
-                @csrf
+<div class="content-container">
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+        <div
+            class="relative flex flex-col m-8 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0"
+        >
+            <!-- left side -->
+            <div class="flex flex-col justify-center p-8 md:p-14">
+                <form action="{{route('insert')}}" method="post">
+                    @csrf
 
+                    <div class="py-4">
+                        <span class="mb-2 text-md">Name</span>
+                        <input
+                            type="text"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                            name="FullName"
+                            id="email"
+                        />
+                    </div>
+
+                    <div class="py-4">
+                        <span class="mb-2 text-md">Phone</span>
+                        <input
+                            type="text"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                            name="PhoneNumber"
+                            id="email"
+                        />
+                    </div>
                 <div class="py-4">
-                    <span class="mb-2 text-md">Name</span>
+                        <span class="mb-2 text-md">Email</span>
+                        <input
+                            type="text"
+                            class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+                            name="Email"
+                            id="email"
+                        />
+                </div>
+                <div class="py-4">
+                    <span class="mb-2 text-md">Password</span>
                     <input
-                        type="text"
+                        type="password"
+                        name="Password"
+                        id="pass"
                         class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                        name="FullName"
-                        id="email"
                     />
                 </div>
 
-                <div class="py-4">
-                    <span class="mb-2 text-md">Phone</span>
-                    <input
-                        type="text"
-                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                        name="PhoneNumber"
-                        id="email"
-                    />
+                <button type="submit"
+                        class="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
+                >
+                    Register
+                </button>
+                </form>
+    {{--            <button--}}
+    {{--                class="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white"--}}
+    {{--            >--}}
+    {{--                <img src="google.svg" alt="img" class="w-6 h-6 inline mr-2" />--}}
+    {{--                Sign in with Google--}}
+    {{--            </button>--}}
+                <div class="text-center text-gray-400">
+                    Already have an account?
+                    <a href="{{route('alter2')}}"><span class="font-bold text-black">Sign in here</span></a>
                 </div>
-            <div class="py-4">
-                    <span class="mb-2 text-md">Email</span>
-                    <input
-                        type="text"
-                        class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
-                        name="Email"
-                        id="email"
-                    />
             </div>
-            <div class="py-4">
-                <span class="mb-2 text-md">Password</span>
-                <input
-                    type="password"
-                    name="Password"
-                    id="pass"
-                    class="w-full p-2 border border-gray-300 rounded-md placeholder:font-light placeholder:text-gray-500"
+            <!-- {/* right side */} -->
+            <div class="relative">
+                <img
+                    src="{{asset('/Photo/407388772_1571564950313630_1448468611101014233_n.png')}}"
+                    alt="img"
+                    class="w-[500px] h-full hidden rounded-r-2xl md:block object-cover"
                 />
-            </div>
+                <!-- text on image  -->
+                <div
+                    class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
+                >
 
-            <button type="submit"
-                    class="w-full bg-black text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
-            >
-                Register
-            </button>
-            </form>
-{{--            <button--}}
-{{--                class="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-black hover:text-white"--}}
-{{--            >--}}
-{{--                <img src="google.svg" alt="img" class="w-6 h-6 inline mr-2" />--}}
-{{--                Sign in with Google--}}
-{{--            </button>--}}
-            <div class="text-center text-gray-400">
-                Already have an account?
-                <a href="{{route('alter2')}}"><span class="font-bold text-black">Sign in here</span></a>
-            </div>
-        </div>
-        <!-- {/* right side */} -->
-        <div class="relative">
-            <img
-                src="{{asset('/Photo/407388772_1571564950313630_1448468611101014233_n.png')}}"
-                alt="img"
-                class="w-[500px] h-full hidden rounded-r-2xl md:block object-cover"
-            />
-            <!-- text on image  -->
-            <div
-                class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
-            >
-
+                </div>
             </div>
         </div>
     </div>

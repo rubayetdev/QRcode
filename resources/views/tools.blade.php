@@ -2,18 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <title>ScanHub | Tools</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="{{asset('JS/script.js')}}" defer></script>
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
+        gtag('config', 'G-QHCMCY84FV');
+    </script>
     <style>
         .ag-format-container {
             width: 1142px;
             margin: 0 auto;
         }
 
-
         body {
             background-color: #000;
+            padding-top: 60px;
         }
         .ag-courses_box {
             display: -webkit-box;
@@ -152,23 +160,24 @@
                 font-size: 16px;
             }
         }
+        @media only screen and (max-width: 767px) {
+            body {
+                padding-top: 80px; /* Adjust as needed for smaller screens */
+            }
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">ScanHub</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
-                <a class="nav-link" href="#">Tools</a>
-                <a class="nav-link" href="{{route('alter2')}}">Sign In</a>
-            </div>
-        </div>
-    </div>
+<nav class="nav">
+    <i class="uil uil-bars navOpenBtn"></i>
+    <a href="#" class="logo">ScanHub</a>
+
+    <ul class="nav-links">
+        <i class="uil uil-times navCloseBtn"></i>
+        <li><a href="{{route('home')}}">Home</a></li>
+        <li><a href="#">Tools</a></li>
+        <li><a href="{{route('alter2')}}">Signin</a></li>
+    </ul>
 </nav>
 
 <div class="ag-format-container">

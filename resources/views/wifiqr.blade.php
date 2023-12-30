@@ -291,7 +291,7 @@
         <a class="navbar-brand" href="#">Navbar</a>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page" href="#">
+                <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page">
                     <div class="profile-pic">
                         <!-- This span will hold the first letter of the name -->
                         <span id="profile-initial"></span>
@@ -310,8 +310,8 @@
     </div>
     <ul class="menu">
         <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="#"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
-        <li><a href="#"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+        <li><a href="{{route('history',['id'=>$id])}}"><i class="fas fa-history"></i> History</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
         <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>

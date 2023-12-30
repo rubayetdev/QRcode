@@ -56,6 +56,7 @@
                 <li><a href="{{route('wifiqr',['id'=>$id->id])}}">WIFI QR</a></li>
                 <li><a href="{{route('locationqr',['id'=>$id->id])}}">Location QR</a></li>
                 <li><a href="{{route('urlqr',['id'=>$id->id])}}">URL QR</a></li>
+                <li><a href="{{route('contactqr',['id'=>$id->id])}}">Contact QR</a></li>
             </ul>
         </li>
         <li><a href="{{route('history',['id'=>$id])}}"><i class="fas fa-history"></i> History</a></li>
