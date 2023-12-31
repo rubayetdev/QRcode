@@ -99,25 +99,19 @@ Route::post('Logged',[\App\Http\Controllers\UserController::class,'Login'])->nam
 Route::post('/update',[\App\Http\Controllers\UserController::class,'updateprofile'])->name('update');
 
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/alter', function () {
-    return view('alter');
+Route::get('/registration', function () {
+    return view('registration');
 })->name('alter');
 
-Route::get('/alter2', function () {
-    return view('alter2');
+Route::get('/login', function () {
+    return view('login');
 })->name('alter2');
 
-Route::get('/dashboard2', function () {
-    return view('dashboard2');
-})->name('dashboard2');
+
 
 Route::get('/tools', function () {
     return view('tools');
@@ -125,9 +119,7 @@ Route::get('/tools', function () {
 
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('logout');
 
-Route::get('/alternatelogin', function () {
-    return view('alternatelogin');
-})->name('alternatelogin');
+
 
 
 

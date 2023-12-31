@@ -20,7 +20,7 @@
         }
 
         body {
-            background-color: #000;
+            background-color: #fff;
             padding-top: 60px;
         }
         .ag-courses_box {

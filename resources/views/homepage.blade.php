@@ -43,6 +43,8 @@
 
                 <div class="signup-button">
                     <a href="{{route('alter2')}}" class="btn btn-primary btn-lg">Sign In</a>
+
+                    <a href="{{route('alter')}}" class="btn btn-primary btn-lg">Sign Up</a>
                 </div>
             </div>
         </div>
