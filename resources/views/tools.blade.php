@@ -165,12 +165,19 @@
                 padding-top: 80px; /* Adjust as needed for smaller screens */
             }
         }
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
 <nav class="nav">
     <i class="uil uil-bars navOpenBtn"></i>
-    <a href="#" class="logo">ScanHub</a>
+    <a href="{{route('home')}}" class="logo">ScanHub</a>
 
     <ul class="nav-links">
         <i class="uil uil-times navCloseBtn"></i>
@@ -191,9 +198,9 @@
                 </div>
 
                 <div class="ag-courses-item_date-box">
-                    Start:
+                   
                     <span class="ag-courses-item_date">
-            04.11.2022
+            <p align="justify">Create detailed product QR codes effortlessly with Product  QR, featuring essential information like batch number, production, and expiry dates. Seamlessly incorporate website details for enhanced traceability and consumer engagement.</p>
           </span>
                 </div>
             </a>
@@ -208,9 +215,9 @@
                 </div>
 
                 <div class="ag-courses-item_date-box">
-                    Start:
+                   
                     <span class="ag-courses-item_date">
-            04.11.2022
+            <p align="justify">Effortlessly create personalized Email QR codes, seamlessly embedding sender, recipient, and message details. Enhance digital correspondence efficiency by sharing tailored information through Email QR codes, simplifying communication.</p>
           </span>
                 </div>
             </a>
@@ -225,9 +232,9 @@
                 </div>
 
                 <div class="ag-courses-item_date-box">
-                    Start:
+                    
                     <span class="ag-courses-item_date">
-            04.11.2022
+            <p align="justify">Streamline communication with SMS QR codes, effortlessly encoding sender, recipient, and message details. Optimize digital correspondence by sharing SMS QR codes, enhancing efficiency in exchanging information.</p>
           </span>
                 </div>
             </a>
@@ -242,9 +249,9 @@
                 </div>
 
                 <div class="ag-courses-item_date-box">
-                    Start:
+
                     <span class="ag-courses-item_date">
-            04.11.2022
+            <p align = "justify">Effortlessly generate custom WiFi QR codes with our user-friendly tool, including network details and optional website information. Simplify connectivity through seamless scans, making WiFi sharing and access a breeze.</p>
           </span>
                 </div>
             </a>
@@ -259,9 +266,11 @@
                 </div>
 
                 <div class="ag-courses-item_date-box">
-                    Start:
+            
                     <span class="ag-courses-item_date">
-            30.11.2022
+            <p align= "justify">
+                Generate custom WiFi QR codes effortlessly with our user-friendly tool. Include network name, password, and hidden status, along with optional website details. Simplify connectivity with a scan, making sharing.
+            </p>
           </span>
                 </div>
             </a>
@@ -276,6 +285,13 @@
                 <div class="ag-courses-item_title">
                     URL QR
                 </div>
+                
+                <div class="ag-courses-item_date-box">
+                    <span class="ag-courses-item_date">
+<p align="justify">Effortlessly generate personalized URL QR codes, encapsulating website name, URL, and input values. Simplify access and enhance digital interactions with our streamlined QR method for efficient website navigation.</p>
+          </span>
+                </div>
+                
             </a>
         </div>
 
@@ -288,9 +304,8 @@
                 </div>
 
                 <div class="ag-courses-item_date-box">
-                    Start:
                     <span class="ag-courses-item_date">
-            31.10.2022
+            <p align="justify">Effortlessly create personalized Contact QR codes with our method, encompassing name, mobile, company, and social media details. Streamline connections by sharing a QR code, simplifying contact exchange with integrated website information.</p>
           </span>
                 </div>
             </a>
@@ -298,5 +313,22 @@
 
     </div>
 </div>
+<footer class="footer">
+{{--    <div class="container text-center py-4">--}}
+        <p>&copy; 2024 ScanHub. All rights reserved.</p>
+        <div class="footer-links mt-2">
+            <a href="#">Privacy Policy</a> |
+            <a href="#">Terms of Service</a> |
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="social-links mt-3">
+            <!-- Social media icons -->
+            <!-- Google Play link with an image -->
+            <a href="https://play.google.com/store/apps/dev?id=6580660399707616800&hl=en&gl=US" target="_blank">
+                <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" style="width: 150px;">
+            </a>
+        </div>
+{{--    </div>--}}
+</footer>
 </body>
 </html>

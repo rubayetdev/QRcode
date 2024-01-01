@@ -14,6 +14,22 @@
 
         gtag('config', 'G-QHCMCY84FV');
     </script>
+    
+    <style>
+        @media (max-width: 767px) {
+            /* Hide sidebar on smaller screens */
+            .sidebar {
+                display: none;
+            }
+
+            /* Adjust the navbar for mobile */
+            .navbar-toggler {
+                display: block; /* Ensure the navbar toggler button is visible */
+            }
+
+            /* Adjustments to the main content area or any other elements as needed */
+        }
+    </style>
 </head>
 <body class="sidebar-open">
 
@@ -22,7 +38,7 @@
         <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Navbar</a>
+        
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page" href="#">
@@ -40,25 +56,10 @@
 
 <div class="sidebar">
     <div class="logo">
-        Shothik AI
+        ScanHub
     </div>
     <ul class="menu">
         <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" onclick="toggleSubMenu(this)">
-                <i class="fas fa-chart-bar"></i> Dashboard
-                <i class="fas fa-chevron-down"></i>
-            </a>
-            <ul class="sub-menu">
-                <li><a href="{{route('productqr',['id'=>$id->id])}}">Product QR</a></li>
-                <li><a href="{{route('emailqr',['id'=>$id->id])}}">Email QR</a></li>
-                <li><a href="{{route('smsqr',['id'=>$id->id])}}">SMS QR</a></li>
-                <li><a href="{{route('wifiqr',['id'=>$id->id])}}">WIFI QR</a></li>
-                <li><a href="{{route('locationqr',['id'=>$id->id])}}">Location QR</a></li>
-                <li><a href="{{route('urlqr',['id'=>$id->id])}}">URL QR</a></li>
-                <li><a href="{{route('contactqr',['id'=>$id->id])}}">Contact QR</a></li>
-            </ul>
-        </li>
         <li><a href="{{route('history',['id'=>$id])}}"><i class="fas fa-history"></i> History</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
         <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

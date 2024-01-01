@@ -279,7 +279,7 @@
         <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Navbar</a>
+        
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page" href="#">
@@ -297,11 +297,11 @@
 
 <div class="sidebar">
     <div class="logo">
-        Shothik AI
+        Scanhub
     </div>
     <ul class="menu">
         <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
+        
         <li><a href="{{route('history',['id'=>$id])}}"><i class="fas fa-history"></i> History</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
         <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>

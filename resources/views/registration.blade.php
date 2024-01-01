@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
     <script src="{{asset('JS/script.js')}}" defer></script>
 
-    <title>Document</title>
+    <title>Sign Up</title>
     <style>
         body {
             font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;

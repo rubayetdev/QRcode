@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
     <script src="{{asset('JS/script.js')}}" defer></script>
-        <title>Document</title>
+        <title>Sign In</title>
 
     <style>
         body {
@@ -19,18 +19,28 @@
 
         .nav {
             color: white;
+        
             font-weight: bolder;
             z-index: 10; /* Ensure the navbar appears above other elements */
         }
 
         .content-container {
-            padding-top: 20px; /* Adjust top padding to avoid overlap */
+            padding-top: 0px; /* Adjust top padding to avoid overlap */
         }
 
         @media (min-width: 768px) {
             .content-container {
                 padding-top: 120px; /* Adjust top padding for larger screens if needed */
             }
+        }
+        .footer {
+            background-color: #4a98f7;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
@@ -124,6 +134,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

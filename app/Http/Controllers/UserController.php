@@ -9,12 +9,15 @@ use App\Models\ProductQR;
 use App\Models\SMSQR;
 use App\Models\URLQR;
 use App\Models\User;
+use App\Models\Visitor;
 use App\Models\WIFIQR;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Stevebauman\Location\Facades\Location;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Validation\Validator;
 
 class UserController extends Controller
 {
@@ -65,16 +68,6 @@ class UserController extends Controller
         else
             return redirect()->back()->with('error', 'Invalid credentials');
 
-
-//        $user = User::where('email',$request->input('Email'))
-//            ->where('password',$request->input('Password'))
-//            ->first();
-//
-//        if ($user) {
-//            return redirect()->route('dashboard', ['id' => $user->id]);
-//        }
-//        else
-//            return redirect()->back()->with('error','Please Check Your Credential');
     }
 
     public function logout(Request $request)
@@ -88,8 +81,34 @@ class UserController extends Controller
 
     }
 
-    public function dash($id){
+    public function dash($id, Request $request){
         $user = User::find($id);
+
+
+        $ipaddress = $request->ip();
+
+        $location = Location::get($ipaddress);
+
+        $exit = Visitor::where('ip_address',$ipaddress)->first();
+
+        if($exit){
+            $exit->increment('visit_count');
+        }
+        elseif ($exit)
+        {
+            Visitor::where('ip_address',$ipaddress)->update([
+                'location'=>$location
+            ]);
+        }
+        else{
+            Visitor::create([
+                'ip_address'=>$ipaddress,
+                'visit_count' => 1,
+                'location'=>$location,
+            ]);
+        }
+
+
         if ($user) {
             return view('dashboard', ['id' => $user]);
         } else {
@@ -161,6 +180,16 @@ class UserController extends Controller
 
     public function productupload(Request $request)
     {
+        $request->validate([
+            'companyName' => 'required|string|max:50',
+            'productName' => 'required|string|max:50',
+            'batchNumber' => 'required|numeric|max:9999999999',
+            'makingDate' => 'required|date',
+            'expiryDate' => 'required|date',
+        ]);
+
+
+
         $user = $request->input('id');
         $products = $request->input('prod');
         $infoProduct = ProductQR::insert([
@@ -468,5 +497,23 @@ class UserController extends Controller
         $qrCode = QrCode::format('png')->size(200)->generate($info);
 
         return view ('theqr7',['id'=>$user,'product'=>$products,'qrCode'=>$qrCode]);
+    }
+
+    public function storeIpAddress(Request $request)
+    {
+        $ipaddress = $request->ip();
+
+        $exit = Visitor::where('ip_address',$ipaddress)->first();
+
+        if($exit){
+            $exit->increment('visit_count');
+        }
+        else{
+            Visitor::create([
+                'ip_address'=>$ipaddress,
+                'visit_count' => 1
+            ]);
+        }
+
     }
 }

@@ -287,7 +287,7 @@
         <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Navbar</a>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a href="{{route('profile',['id'=>$id->id])}}" class="nav-link active" aria-current="page" href="#">
@@ -305,11 +305,10 @@
 
 <div class="sidebar">
     <div class="logo">
-        Shothik AI
+        ScanHub
     </div>
     <ul class="menu">
         <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="{{route('dashboard',['id'=>$id->id])}}"><i class="fas fa-chart-bar"></i> Dashboard</a></li>
         <li><a href="{{route('history',['id'=>$id])}}"><i class="fas fa-history"></i> History</a></li>
         <li><a href="{{route('editprofile',['id'=>$id->id])}}"><i class="fas fa-cog"></i> Settings</a></li>
         <li><a href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -347,15 +346,15 @@
                             <input type="hidden" name="username" value="{{$id->name}}" readonly>
                             <div class="mb-3">
                                 <label for="companyName" class="form-label">Company Name</label>
-                                <input type="text" class="form-control" id="companyName" name="companyName" required>
+                                <input type="text" class="form-control" id="companyName" name="companyName" maxlength="50" required>
                             </div>
                             <div class="mb-3">
                                 <label for="productName" class="form-label">Product Name</label>
-                                <input type="text" class="form-control" id="productName" name="productName" required>
+                                <input type="text" class="form-control" id="productName" name="productName" maxlength="50" required>
                             </div>
                             <div class="mb-3">
                                 <label for="batchNumber" class="form-label">Batch Number</label>
-                                <input type="text" class="form-control" id="batchNumber" name="batchNumber" required>
+                                <input type="text" class="form-control" id="batchNumber" name="batchNumber" maxlength="15" required>
                             </div>
                             <div class="mb-3">
                                 <label for="makingDate" class="form-label">Making Date</label>
