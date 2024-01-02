@@ -13,6 +13,7 @@ use App\Models\Visitor;
 use App\Models\WIFIQR;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Stevebauman\Location\Facades\Location;
@@ -23,18 +24,29 @@ class UserController extends Controller
 {
     public function storeInfo(Request $request)
     {
+        $email = $request->input('Email');
+        $phone = $request->input('PhoneNumber');
+        $check = User::where('email',$email)
+            ->where('phone',$phone)
+            ->first();
         $password = $request->input('Password');
         $encrypt = Hash::make($password);
 
-        $infoInsert = User::insert([
-            'name'=>$request->input('FullName'),
-            'email'=>$request->input('Email'),
-            'phone'=>$request->input('PhoneNumber'),
-            'password'=>$encrypt
-        ]);
+        if ($check)
+        {
+            return redirect()->back()->with('error','Already Exists');
+        }
+        else {
+            $infoInsert = User::insert([
+                'name' => $request->input('FullName'),
+                'email' => $request->input('Email'),
+                'phone' => $request->input('PhoneNumber'),
+                'password' => $encrypt
+            ]);
 
-        if($infoInsert){
-            return redirect()->route('home');
+            if ($infoInsert) {
+                return redirect()->route('alter2');
+            }
         }
     }
 
@@ -84,30 +96,19 @@ class UserController extends Controller
     public function dash($id, Request $request){
         $user = User::find($id);
 
-
         $ipaddress = $request->ip();
 
-        $location = Location::get($ipaddress);
+        $users = User::where('id',$user->id)->update([
+            'ip_address'=>$ipaddress,
+            'visit_count' => DB::raw('visit_count + 1')
+        ]);
 
-        $exit = Visitor::where('ip_address',$ipaddress)->first();
 
-        if($exit){
-            $exit->increment('visit_count');
-        }
-        elseif ($exit)
-        {
-            Visitor::where('ip_address',$ipaddress)->update([
-                'location'=>$location
-            ]);
-        }
-        else{
-            Visitor::create([
-                'ip_address'=>$ipaddress,
-                'visit_count' => 1,
-                'location'=>$location,
-            ]);
-        }
+//        $location = Location::get($ipaddress);
 
+
+//
+//        $user->update(['ip_address',$ipaddress]);
 
         if ($user) {
             return view('dashboard', ['id' => $user]);
@@ -514,6 +515,21 @@ class UserController extends Controller
                 'visit_count' => 1
             ]);
         }
+
+    }
+
+    public function blockips(Request $request)
+    {
+        $blockip = $request->input('ip');
+
+        $request->session()->put('ip',explode(',',$blockip));
+        return redirect()->back();
+    }
+
+    public function visitors()
+    {
+        $visit = Visitor::paginate(8);
+        return view('visitor-admin',['visit'=>$visit]);
 
     }
 }

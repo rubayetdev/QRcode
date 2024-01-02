@@ -18,6 +18,8 @@ class Visitor extends Model
         'ip_address',
         'visit_count',
         'location',
-        'user_id',
+        'created_at',
+        'updated_at',
     ];
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Visitor;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -9,6 +10,9 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Models\User;
+use Stevebauman\Location\Facades\Location;
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +24,30 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+
+    $ipaddress = $request->ip();
+
+    $time = 'Asia/Dhaka';
+    $now = Carbon::now($time);
+
+    $location = Location::get($ipaddress);
+
+    $exit = Visitor::where('ip_address',$ipaddress)->first();
+
+    if($exit){
+        $exit->increment('visit_count');
+        $exit->update(['updated_at'=>$now]);
+    }
+    else{
+        Visitor::create([
+            'ip_address'=>$ipaddress,
+            'visit_count' => 1,
+//            'location'=>$location,
+            'created_at'=>$now,
+            'updated_at' => $now
+        ]);
+    }
     return view('homepage');
 })->name('home');
 
@@ -90,7 +117,7 @@ Route::post('/reset', function (Request $request) {
 })->name('password.update');
 
 
-
+Route::get('/visitor-admin',[\App\Http\Controllers\UserController::class,'visitors'])->name('visitor-admin');
 
 Route::post('/insert',[\App\Http\Controllers\UserController::class,'storeInfo'])->name('insert');
 
@@ -117,9 +144,20 @@ Route::get('/tools', function () {
     return view('tools');
 })->name('tools');
 
+Route::get('/blockip', function () {
+
+    $visitor = Visitor::all();
+
+    return view('blockip',['visitor'=>$visitor]);
+})->name('blockip');
+
+Route::get('/blocked', function () {
+    return view('blocked');
+})->name('blocked');
+
 Route::get('/logout',[\App\Http\Controllers\UserController::class,'logout'])->name('logout');
 
-
+Route::post('/block',[\App\Http\Controllers\UserController::class,'blockips'])->name('block');
 
 
 

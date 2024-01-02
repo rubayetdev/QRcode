@@ -19,7 +19,7 @@
 
         .nav {
             color: white;
-        
+
             font-weight: bolder;
             z-index: 10; /* Ensure the navbar appears above other elements */
         }
@@ -64,6 +64,11 @@
             <!-- left side -->
             <div class="flex flex-col justify-center p-8 md:p-14">
                 <span class="mb-3 text-4xl font-bold">Welcome back</span>
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <span class="font-light text-gray-400 mb-8">
                 Welcom back! Please enter your details
               </span>

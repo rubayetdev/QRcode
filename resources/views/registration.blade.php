@@ -80,6 +80,11 @@
         >
             <!-- left side -->
             <div class="flex flex-col justify-center p-8 md:p-14">
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <form action="{{route('insert')}}" method="post">
                     @csrf
 
